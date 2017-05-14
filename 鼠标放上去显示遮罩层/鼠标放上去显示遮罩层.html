@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>鼠标放上去显示遮罩层</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style>
+        #box {
+            width: 390px;
+            height: 590px;
+            margin: 0 auto;
+        }
+        
+        #box .big {
+            width: 370px;
+            height: 520px;
+            overflow: hidden;
+            position: relative;
+            padding: 10px;
+            background: #fff;
+            cursor: pointer;
+        }
+        
+        #box .bigKeep {
+            width: 380px;
+            height: 510px;
+            border: 5px solid #cecece;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        
+        #box .big p {
+            font-size: 12px;
+            color: #333;
+            width: 320px;
+            margin: 20px auto;
+            line-height: 22px;
+        }
+        
+        #box ul {
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+            margin: -40px;
+        }
+        
+        #box ul li {
+            width: 175px;
+            height: 170px;
+            padding: 10px;
+            background: #fff;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        #box ul li .keep {
+            width: 170px;
+            height: 170px;
+            background: #000;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            z-index: 1;
+            opacity: 0;
+        }
+        
+        #box ul li .text {
+            width: 140px;
+            height: 150px;
+            padding: 25px;
+            font-size: 12px;
+            color: #fff;
+            line-height: 20px;
+            position: absolute;
+            left: -170px;
+            top: 0;
+            z-index: 2;
+        }
+        
+        #box ul li .text span {
+            display: block;
+            margin: 20px 0 20px 0;
+        }
+        
+        #box ul li img {
+            width: 170px;
+            height: 170px;
+        }
+    </style>
+</head>
+
+<body style="height: 800px; background: rgb(229, 229, 229);">
+    <div id="box">
+        <div class="big">
+            <img src="0.jpg">
+            <p>大图大图大图大图大图大图大图大图大图大图大图大图大图大图</p>
+            <div class="bigKeep"></div>
+        </div>
+        <ul>
+            <li style="float:left">
+                <img src="1.jpg">
+                <div class="keep"> </div>
+                <p class="text">
+                    <span>遮罩层</span>遮罩层遮罩层遮罩层遮罩层遮罩层遮罩层遮罩层遮罩层.
+                </p>
+            </li>
+            <li style="float:left">
+                <img src="2.jpg">
+                <div class="keep"> </div>
+                <p class="text">
+                    <span>遮罩层</span>遮罩层遮罩层遮罩层遮罩层遮罩层遮罩层遮罩层遮罩层.
+                </p>
+            </li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
+<script>
+    $(function() {
+        //ul里头的li中的keep，text都是绝对定位，要遮住img这个图片，keep是个遮罩层，text是遮罩层内的文字
+        //big里头的bigKeep是遮罩层，透明度为0
+        var oBig = $('#box .big');
+        var oBigKeep = oBig.find('.bigKeep');
+        var aLi = $('#box ul li');
+        oBig.hover(function() {
+            oBigKeep.stop().animate({
+                opacity: 1
+            }, 500);
+        }, function() {
+            oBigKeep.stop().animate({
+                opacity: 0
+            }, 500);
+
+        })
+        var oKeep, oText;
+        aLi.hover(function() {
+            oKeep = $(this).find('.keep');
+            oText = $(this).find('.text');
+            oKeep.stop().animate({
+                opacity: 0.8
+            }, 300);
+            oText.stop().animate({
+                left: 0,
+                opacity: 1
+            }, 200);
+        }, function() {
+            oKeep.stop().animate({
+                opacity: 0
+            }, 300);
+            oText.stop().animate({
+                left: -170,
+                opacity: 0
+            }, 200);
+
+        })
+
+    });
+</script>
